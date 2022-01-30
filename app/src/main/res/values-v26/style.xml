@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="tab_text"
+        parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@font/yanolja_bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#7f5539</item>
+    </style>
+    <style name="category_title">
+        <item name="android:fontFamily">@font/yanolja_bold</item>
+        <item name="android:textColor">#7f5539</item>
+    </style>
+    <style name="category_period">
+        <item name="android:fontFamily">@font/yanolja_regular</item>
+        <item name="android:textColor">#b08968</item>
+    </style>
+    <style name="category_memo">
+        <item name="android:fontFamily">@font/yanolja_regular</item>
+        <item name="android:textColor">#7f5539</item>
+    </style>
+    <string name="date_format">%d-%d-%d ~ %d-%d-%d</string>
+</resources>

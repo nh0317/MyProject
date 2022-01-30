@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="kr.co.company.myproject.fragment.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_categoryDialogFragment2"
+            app:destination="@id/categoryDialogFragment2" />
+        <action
+            android:id="@+id/action_mainFragment_to_todoDialogFragment"
+            app:destination="@id/todoDialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryDialogFragment2"
+        android:name="kr.co.company.myproject.fragment.CategoryDialogFragment"
+        android:label="category_dialog"
+        tools:layout="@layout/category_dialog">
+        <action
+            android:id="@+id/action_categoryDialogFragment2_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <argument
+            android:name="category"
+            app:argType="kr.co.company.myproject.domain.category.Category" />
+    </fragment>
+    <fragment
+        android:id="@+id/todoDialogFragment"
+        android:name="kr.co.company.myproject.fragment.TodoDialogFragment"
+        android:label="todo_dialog"
+        tools:layout="@layout/todo_dialog" >
+        <action
+            android:id="@+id/action_todoDialogFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <argument
+            android:name="todo"
+            app:argType="kr.co.company.myproject.domain.todo.Todo" />
+    </fragment>
+</navigation>
