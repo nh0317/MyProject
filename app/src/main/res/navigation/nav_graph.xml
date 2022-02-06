@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_mainFragment_to_todoDialogFragment"
             app:destination="@id/todoDialogFragment" />
+        <argument
+            android:name="tabPosition"
+            android:defaultValue="0"/>
     </fragment>
     <fragment
         android:id="@+id/categoryDialogFragment2"
@@ -39,5 +42,8 @@
         <argument
             android:name="todo"
             app:argType="kr.co.company.myproject.domain.todo.Todo" />
+        <argument
+            android:name="category"
+            app:argType="kr.co.company.myproject.domain.category.Category" />
     </fragment>
 </navigation>

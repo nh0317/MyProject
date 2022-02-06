@@ -4,12 +4,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import kr.co.company.myproject.domain.todo.Todo
 import kr.co.company.myproject.domain.todo.TodoDao
 import kr.co.company.myproject.domain.category.Category
 import kr.co.company.myproject.domain.category.CategoryDao
 
-@Database(entities = [Category::class, Todo::class], version = 6, exportSchema = false)
+@TypeConverters(LocalDateConverter::class)
+@Database(entities = [Category::class, Todo::class], version = 14, exportSchema = false)
 abstract class TodoListDatabase : RoomDatabase() {
     abstract fun CategoryDao() : CategoryDao
     abstract fun TodoDao() : TodoDao
@@ -26,6 +28,7 @@ abstract class TodoListDatabase : RoomDatabase() {
                         TodoListDatabase::class.java,
                         "todo_database"
                     ).fallbackToDestructiveMigration()
+                        .allowMainThreadQueries()
                         .build()
                 }
             }

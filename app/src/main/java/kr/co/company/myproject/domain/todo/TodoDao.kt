@@ -9,14 +9,14 @@ interface TodoDao {
     suspend fun addTodo(category : Todo)
 
     @Update
-    suspend fun upadateTodo(category: Todo)
+    suspend fun updatedTodo(category: Todo)
 
     @Delete
     suspend fun deleteTodo(category: Todo)
 
-    @Query("SELECT * FROM Todo ORDER BY end_date desc")
+    @Query("SELECT * FROM Todo ORDER BY todo_end_date desc")
     fun readAllData() : Flow<List<Todo>>
 
-    @Query("SELECT * FROM Todo WHERE category_id=:categoryId and not checked order by end_date desc")
+    @Query("SELECT * FROM Todo WHERE category_id=:categoryId and not todo_checked order by todo_end_date desc")
     fun readAllCategoryTodo(categoryId:Long) : List<Todo>
 }

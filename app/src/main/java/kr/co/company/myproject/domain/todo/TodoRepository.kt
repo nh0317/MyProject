@@ -1,10 +1,7 @@
 package kr.co.company.myproject.domain.todo
 
-import android.util.Log
-import androidx.lifecycle.asLiveData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.toList
 
 
 class TodoRepository(private val todoDao : TodoDao) {
@@ -16,7 +13,7 @@ class TodoRepository(private val todoDao : TodoDao) {
     }
 
     suspend fun updateTodo(todo: Todo){
-        todoDao.upadateTodo(todo)
+        todoDao.updatedTodo(todo)
     }
 
     suspend fun deleteTodo(todo: Todo){

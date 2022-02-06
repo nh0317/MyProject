@@ -5,10 +5,11 @@
         <variable
             name="todo"
             type="kr.co.company.myproject.domain.todo.Todo" />
+
     </data>
 
     <LinearLayout
-        android:id="@+id/todo_linearLayout"
+        android:id="@+id/todo_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/todo_layout"

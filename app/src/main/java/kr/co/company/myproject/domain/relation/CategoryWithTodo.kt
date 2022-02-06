@@ -10,8 +10,8 @@ import kr.co.company.myproject.domain.category.Category
 @Parcelize
 data class CategoryWithTodo(@Embedded var category: Category,
                             @Relation(
-                                parentColumn = "recipeId",
-                                entityColumn = "recipeBasicId"
+                                parentColumn = "category_id",
+                                entityColumn = "category_id"
                             )
                             var todos: List<Todo>) :Parcelable{
 }

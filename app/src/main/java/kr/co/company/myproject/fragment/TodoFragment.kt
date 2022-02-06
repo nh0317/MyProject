@@ -14,6 +14,8 @@ import kr.co.company.myproject.adapter.CategoryAdapter
 import kr.co.company.myproject.databinding.FragmentTodoBinding
 import kr.co.company.myproject.viewModel.CategoryViewModel
 import kr.co.company.myproject.viewModel.TodoViewModel
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,7 +31,7 @@ class TodoFragment : Fragment() {
     private var binding : FragmentTodoBinding?=null
     private val categoryViewModel : CategoryViewModel by viewModels()
     private val todoViewModel : TodoViewModel by viewModels()
-    private val adapter : CategoryAdapter by lazy { CategoryAdapter(requireContext(),viewLifecycleOwner,categoryViewModel,todoViewModel) }
+    private val adapter : CategoryAdapter by lazy { CategoryAdapter(requireContext(),0, viewLifecycleOwner,categoryViewModel,todoViewModel) }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -37,27 +39,27 @@ class TodoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding= FragmentTodoBinding.inflate(inflater,container,false)
-//        adapter.setHasStableIds(true)
+        adapter.setHasStableIds(true)
 
         binding!!.categoryRecycle.layoutManager = LinearLayoutManager(activity,
             LinearLayoutManager.VERTICAL,false)
         binding!!.categoryRecycle.adapter=adapter
 
         categoryViewModel.readAllData.observe(viewLifecycleOwner, Observer {
+            categoryViewModel.readAllDateCategory(LocalDate.now())
+        })
+        categoryViewModel.readAllDateCategory.observe(viewLifecycleOwner, Observer {
             adapter.setData(it)
         })
-//        binding!!.writeIcon.setOnClickListener{
-//            val today = LocalDateTime.now()
-//            val category = Category(today,today)
-//            val dialog = CategoryDialog(this.requireContext(),category)
-//            dialog.showDialog()
-//            dialog.setOnClickListener( object : CategoryDialog.OnDialogClickListener{
-//                override fun onClicked(newCategory: Category) {
-//                    categoryViewModel.addCategory(newCategory)
-//                }
-//            })
-//        }
-        // Inflate the layout for this fragment
+        binding!!.calendarView.setOnDateChangeListener { calendarView, y, m, d ->
+            val date = LocalDate.of(y,m+1,d)
+            categoryViewModel.readAllDateCategory((date?: LocalDate.now()) as LocalDate)
+        }
         return binding!!.root
+    }
+    override fun onDestroyView() {
+        binding = null
+
+        super.onDestroyView()
     }
 }

@@ -1,13 +1,19 @@
 package kr.co.company.myproject.domain.category
 
+import android.os.Build
 import android.util.Log
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.toList
+import androidx.annotation.RequiresApi
+import androidx.lifecycle.asLiveData
+import kotlinx.coroutines.flow.*
+import kr.co.company.myproject.domain.relation.CategoryWithTodo
 import kr.co.company.myproject.domain.todo.Todo
+import java.time.LocalDate
+import java.time.LocalDateTime
+import kotlin.streams.toList
 
 
 class CategoryRepository(private val categoryDao : CategoryDao) {
-    val readAllData : Flow<List<Category>> = categoryDao.readAllData()
+    val readAllData : Flow<List<CategoryWithTodo>> = categoryDao.readAllData()
 
     suspend fun addCategory(category : Category){
         categoryDao.addCategory(category)
@@ -21,8 +27,12 @@ class CategoryRepository(private val categoryDao : CategoryDao) {
         categoryDao.deleteCategory(category)
     }
 
-    fun readDateCategory(date:Long):List<Category>{
+    fun readDateCategory(date: LocalDate):List<CategoryWithTodo>{
         return categoryDao.readAllDateCategory(date)
+    }
+
+    fun readOneCategory(categoryId:Long):CategoryWithTodo{
+        return categoryDao.readOneCategory(categoryId)
     }
 
 }

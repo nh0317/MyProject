@@ -5,43 +5,32 @@ import android.os.Parcelable
 import androidx.annotation.RequiresApi
 import androidx.room.*
 import kotlinx.android.parcel.Parcelize
-import kr.co.company.myproject.domain.LocalDateTimeConverter
+import kr.co.company.myproject.domain.LocalDateConverter
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Entity
 @Parcelize
-class Category ():Parcelable{
-//    constructor(sy: Int, sm: Int, sd: Int, ey: Int, em: Int, ed: Int, name: String, memo: String):this (){
-//        this.startYear=sy
-//        this.startMonth=sm
-//        this.startDay=sd
-//        this.endYear=ey
-//        this.endMonth=em
-//        this.endDay=ed
-//        this.name=name
-//        this.memo=memo
-//    }
-//
-//    constructor(sy: Int, sm: Int, sd: Int, ey: Int, em: Int, ed: Int):this (){
-//        this.startYear=sy
-//        this.startMonth=sm
-//        this.startDay=sd
-//        this.endYear=ey
-//        this.endMonth=em
-//        this.endDay=ed
-//    }
-    constructor(startDateTime: LocalDateTime,endDateTime: LocalDateTime) : this() {
-        this.startDate=startDateTime
-        this.endDate=endDateTime
-    }
-    constructor(name:String,memo:String):this(){
+class Category (
+    @TypeConverters(LocalDateConverter::class)
+    @ColumnInfo(name="category_start_date")
+    var startDate : LocalDate,
+    @TypeConverters(LocalDateConverter::class)
+    @ColumnInfo(name="category_end_date")
+    var endDate :LocalDate
+    ):Parcelable{
+
+    constructor(startDate: LocalDate, endDate: LocalDate, name:String,memo:String):
+            this(startDate,endDate){
         this.name=name
         this.memo=memo
     }
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name="category_id")
     var id : Long = 0L
+    @ColumnInfo(name="category_name")
     var name : String? = null
 //    var startYear : Int = 0
 //    var startMonth: Int = 0
@@ -49,18 +38,13 @@ class Category ():Parcelable{
 //    var endYear : Int = 0
 //    var endMonth : Int = 0
 //    var endDay : Int = 0
+@ColumnInfo(name="category_memo")
     var memo : String? = null
-    @TypeConverters(LocalDateTimeConverter::class)
-    @ColumnInfo(name="start_date")
-    var startDate :LocalDateTime? = null
-    @TypeConverters(LocalDateTimeConverter::class)
-    @ColumnInfo(name="end_date")
-    var endDate :LocalDateTime? = null
+    @TypeConverters(LocalDateConverter::class)
     @RequiresApi(Build.VERSION_CODES.O)
     fun period():String{
-        val startformat = startDate?.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-        val endformat = endDate?.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        val startformat = startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        val endformat = endDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
         return "$startformat ~ $endformat"
     }
-
 }
